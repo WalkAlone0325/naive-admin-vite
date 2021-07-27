@@ -12,7 +12,7 @@ declare module 'vue-router' {
     // 设置该路由在侧边栏和面包屑中展示的名字
     title?: string
     // 设置该路由的图标
-    icon?: string
+    icon?: any
     // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
     noCache?: boolean
     // 如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)

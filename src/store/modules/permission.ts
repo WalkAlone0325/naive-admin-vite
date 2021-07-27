@@ -31,9 +31,9 @@ export function filterAsyncRoutes(routes: RouteRecordRaw[], roles: string[]) {
       if (tmp.children) {
         tmp.children = filterAsyncRoutes(tmp.children, roles)
       }
+      res.push(tmp)
     }
   })
-
   return res
 }
 
@@ -52,7 +52,7 @@ const permissModule: Module<IPermissState, IRootState> = {
   },
   actions: {
     // 生成路由
-    genrateRoutes({ commit }, roles: string[]) {
+    generateRoutes({ commit }, roles: string[]) {
       return new Promise(resolve => {
         let accessedRoutes
         if (roles.includes('admin')) {
@@ -60,6 +60,7 @@ const permissModule: Module<IPermissState, IRootState> = {
         } else {
           accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
         }
+        // console.log(accessedRoutes)
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)
       })

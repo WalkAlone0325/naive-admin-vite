@@ -13,7 +13,7 @@ export default defineComponent({
         <NConfigProvider theme={darkTheme} locale={zhCN} dateLocale={dateZhCN}>
           <NLayout hasSider>
             <SideBar />
-            <NLayout>
+            <NLayout class="content-container">
               <NavBar />
               <AppMain />
               <NLayoutFooter bordered>底部</NLayoutFooter>

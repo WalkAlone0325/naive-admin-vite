@@ -1,4 +1,4 @@
-import { defineComponent, ref, Component, h, Ref } from 'vue'
+import { defineComponent, ref, Component, h, Ref, computed } from 'vue'
 import { NIcon, NLayoutSider, NMenu, MenuOption } from 'naive-ui'
 import Logo from './Logo'
 import {
@@ -6,6 +6,8 @@ import {
   PersonOutline as PersonIcon,
   WineOutline as WineIcon,
 } from '@vicons/ionicons5'
+import { useStore } from '@/store'
+import { useMenu } from './use-menu'
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
@@ -14,7 +16,8 @@ function renderIcon(icon: Component) {
 export default defineComponent({
   name: 'SideBar',
   setup() {
-    const collapsed = ref(false)
+    const store = useStore()
+
     const activeKey = ref(null)
     const menuOptions: Ref<Array<MenuOption>> = ref([
       {
@@ -89,6 +92,17 @@ export default defineComponent({
       },
     ])
 
+    // computed
+    const collapsed = computed(() => !store.state.app.sidebar.opened)
+    // const routes = computed(() => store.getters.routesData)
+    const routes = computed(() => store.getters.routesData)
+    console.log(routes.value)
+    const menu = useMenu(routes.value)
+    console.log(menu)
+
+    // methods
+    const handleClickMenuItem = () => {}
+
     return () => {
       return (
         <NLayoutSider
@@ -98,15 +112,17 @@ export default defineComponent({
           width={240}
           collapsed={collapsed.value}
           showTrigger
-          onCollapse={() => (collapsed.value = true)}
-          onExpand={() => (collapsed.value = false)}>
-          <Logo />
+          onCollapse={() => store.dispatch('app/toggleSideBar')}
+          onExpand={() => store.dispatch('app/toggleSideBar')}>
+          <Logo collapsed={collapsed.value} />
           <NMenu
             collapsed={collapsed.value}
             collapsedWidth={64}
             collapsedIconSize={22}
-            options={menuOptions.value}
-            v-model={activeKey}></NMenu>
+            options={menu}
+            onUpdateValue={handleClickMenuItem}
+            v-model={activeKey}
+          />
         </NLayoutSider>
       )
     }

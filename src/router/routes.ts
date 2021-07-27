@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout'
+import { AlbumsSharp, AtCircleSharp, BackspaceSharp, BarChart } from '@vicons/ionicons5'
 
 /**
  * 参数解析：
@@ -70,7 +71,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/dashboard'),
         meta: {
           title: 'Dashboard',
-          icon: 'dashboard',
+          icon: AlbumsSharp,
           affix: true,
         },
       },
@@ -84,7 +85,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         path: 'index',
         component: () => import('@/views/documentation'),
         name: 'Documentation',
-        meta: { title: 'Documentation', icon: 'documentation', affix: true },
+        meta: {
+          title: '文档',
+          icon: AtCircleSharp,
+          affix: true,
+        },
       },
     ],
   },
@@ -99,7 +104,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     meta: {
       alwaysShow: true,
       title: '权限页面',
-      icon: 'lock',
+      icon: BackspaceSharp,
       roles: ['admin', 'editor'],
     },
     children: [
@@ -108,7 +113,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/permission/page'),
         name: 'PagePermission',
         meta: {
-          title: 'Page Permission',
+          title: '权限Page',
           roles: ['admin'], // or you can only set roles in sub nav
         },
       },
@@ -117,7 +122,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/permission/directive'),
         name: 'DirectivePermission',
         meta: {
-          title: 'Directive Permission',
+          title: '权限Directive',
           // if do not set roles, means: this page does not require permission
         },
       },
@@ -126,7 +131,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/permission/role'),
         name: 'RolePermission',
         meta: {
-          title: 'Role Permission',
+          title: '权限Role',
           roles: ['admin'],
         },
       },
@@ -140,7 +145,11 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: 'index',
         component: () => import('@/views/icons'),
         name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true },
+        meta: {
+          title: '图标',
+          icon: BarChart,
+          noCache: true,
+        },
       },
     ],
   },
