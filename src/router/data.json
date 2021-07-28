@@ -1,0 +1,188 @@
+[
+  {
+    "name": "Basic",
+    "path": "/basic",
+    "redirect": "noRedirect",
+    "component": "Layout",
+    "meta": {
+      "hidden": false,
+      "alwaysShow": true,
+      "title": "基础信息",
+      "icon": "TrailSign",
+      "noCache": false
+    },
+    "children": [
+      {
+        "name": "Unit",
+        "path": "unit",
+        "redirect": "noRedirect",
+        "component": "ParentView",
+        "meta": {
+          "hidden": false,
+          "alwaysShow": true,
+          "title": "单位管理",
+          "icon": "ServerSharp",
+          "noCache": false
+        },
+        "children": [
+          {
+            "name": "Manufacturer",
+            "path": "manufacturer",
+            "component": "basic/manufacturer/index",
+            "meta": {
+              "hidden": false,
+              "title": "生产厂家",
+              "icon": "Send",
+              "noCache": false
+            }
+          },
+          {
+            "name": "Supplier",
+            "path": "supplier",
+            "component": "basic/supplier/index",
+            "meta": {
+              "hidden": false,
+              "title": "供应商",
+              "icon": "message",
+              "noCache": false
+            }
+          },
+          {
+            "name": "Distributor",
+            "path": "distributor",
+            "component": "basic/distributor/index",
+            "meta": {
+              "hidden": false,
+              "title": "经销商",
+              "icon": "Shirt",
+              "noCache": false
+            }
+          },
+          {
+            "name": "Hospital",
+            "path": "hospital",
+            "component": "basic/unit/hospital/index",
+            "meta": {
+              "hidden": false,
+              "title": "医院管理",
+              "icon": "StopSharp",
+              "noCache": false
+            }
+          },
+          {
+            "name": "Registration",
+            "path": "registration",
+            "component": "basic/registration/index",
+            "meta": {
+              "hidden": true,
+              "title": "注册证管理",
+              "icon": "SkullSharp",
+              "noCache": false
+            }
+          }
+        ]
+      },
+      {
+        "name": "Storehouse",
+        "path": "storehouse",
+        "redirect": "noRedirect",
+        "component": "ParentView",
+        "meta": {
+          "hidden": false,
+          "alwaysShow": true,
+          "title": "仓库管理",
+          "icon": "SnowOutline",
+          "noCache": false
+        },
+        "children": [
+          {
+            "name": "Storehouse",
+            "path": "storehouse",
+            "component": "basic/storehouse/index",
+            "meta": {
+              "hidden": false,
+              "title": "仓库管理",
+              "icon": "SyncCircle",
+              "noCache": false
+            }
+          }
+        ]
+      },
+      {
+        "name": "Doctor",
+        "path": "doctor",
+        "component": "basic/doctor/index",
+        "meta": {
+          "hidden": false,
+          "title": "医生管理",
+          "icon": "cascader",
+          "noCache": false
+        }
+      },
+      {
+        "name": "Patient",
+        "path": "patient",
+        "component": "basic/patient/index",
+        "meta": {
+          "hidden": false,
+          "title": "病人管理",
+          "icon": "client",
+          "noCache": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "Tool",
+    "path": "/tool",
+    "redirect": "noRedirect",
+    "component": "Layout",
+    "meta": {
+      "hidden": false,
+      "alwaysShow": true,
+      "title": "系统工具",
+      "icon": "Triangle",
+      "noCache": false
+    },
+    "children": [
+      {
+        "name": "Build",
+        "path": "build",
+        "component": "tool/build/index",
+        "meta": {
+          "hidden": false,
+          "title": "表单构建",
+          "icon": "TvSharp",
+          "noCache": false
+        }
+      },
+      {
+        "name": "Gen",
+        "path": "gen",
+        "component": "tool/gen/index",
+        "meta": {
+          "hidden": false,
+          "title": "代码生成",
+          "icon": "WatchSharp",
+          "noCache": false
+        }
+      },
+      {
+        "name": "Http://192.168.0.107:8080/swagger-ui.html",
+        "path": "http://192.168.0.107:8080/swagger-ui.html",
+        "component": "Layout",
+        "meta": {
+          "hidden": false,
+          "title": "系统接口",
+          "icon": "WineOutline",
+          "noCache": false
+        }
+      }
+    ]
+  },
+  {
+    "path": "/hidden",
+    "name": "Hidden",
+    "meta": { "hidden": true }
+  }
+]

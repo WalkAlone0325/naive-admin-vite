@@ -1,4 +1,4 @@
-import { defineComponent, ref, Component, h, Ref, computed } from 'vue'
+import { defineComponent, ref, Component, h, Ref, markRaw, computed } from 'vue'
 import { NIcon, NLayoutSider, NMenu, MenuOption } from 'naive-ui'
 import Logo from './Logo'
 import {
@@ -7,7 +7,8 @@ import {
   WineOutline as WineIcon,
 } from '@vicons/ionicons5'
 import { useStore } from '@/store'
-import { useMenu } from './use-menu'
+import { useRoutesToMenu } from './use-menu'
+import { useRouter } from 'vue-router'
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
@@ -16,6 +17,7 @@ function renderIcon(icon: Component) {
 export default defineComponent({
   name: 'SideBar',
   setup() {
+    const router = useRouter()
     const store = useStore()
 
     const activeKey = ref(null)
@@ -97,11 +99,18 @@ export default defineComponent({
     // const routes = computed(() => store.getters.routesData)
     const routes = computed(() => store.getters.routesData)
     console.log(routes.value)
-    const menu = useMenu(routes.value)
+    const menu = useRoutesToMenu(routes.value)
     console.log(menu)
 
     // methods
-    const handleClickMenuItem = () => {}
+    // const handleClickMenuItem = (key, item) => {
+    //   console.log(key, item)
+    //   if (/http(s)?:/.test(key)) {
+    //     window.open(key)
+    //   } else {
+    //     router.push({ name: key })
+    //   }
+    // }
 
     return () => {
       return (
@@ -120,9 +129,9 @@ export default defineComponent({
             collapsedWidth={64}
             collapsedIconSize={22}
             options={menu}
-            onUpdateValue={handleClickMenuItem}
             v-model={activeKey}
           />
+          {/* onUpdateValue={handleClickMenuItem} */}
         </NLayoutSider>
       )
     }

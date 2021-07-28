@@ -7,6 +7,8 @@ declare module 'vue-router' {
     // 若你想不管路由下面的 children 声明的个数都显示你的根路由
     // 你可以设置 alwaysShow: true，这样它就会忽略之前定义的规则，一直显示根路由
     alwaysShow?: boolean
+    // 是否隐藏菜单 默认为false
+    hidden?: boolean
     // 设置该路由进入的权限，支持多个权限叠加
     roles?: string[]
     // 设置该路由在侧边栏和面包屑中展示的名字

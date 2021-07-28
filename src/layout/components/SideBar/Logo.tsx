@@ -7,11 +7,11 @@ export default defineComponent({
       type: Boolean,
     },
   },
-  setup() {
+  setup(props) {
     const title = ref('后台管理系统')
 
     return () => {
-      return <div>{title.value}</div>
+      return <div v-show={!props.collapsed}>{title.value}</div>
     }
   },
 })

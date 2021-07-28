@@ -3,6 +3,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
 import store from './store'
+import { RouteRecordRaw } from 'vue-router'
 
 NProgress.configure({ showSpinner: false })
 
@@ -11,8 +12,13 @@ const whiteList = ['login', '/auth-redirect']
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-  const accessRoutes = await store.dispatch('permission/generateRoutes', ['admin'])
+  const accessRoutes: RouteRecordRaw[] = await store.dispatch('permission/generateRoutes', [
+    'admin',
+  ])
   // console.log(accessRoutes)
+  accessRoutes.map(route => {
+    router.addRoute(route)
+  })
   // router.addRoute(accessRoutes)
   next()
 })

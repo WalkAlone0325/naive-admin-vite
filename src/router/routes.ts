@@ -1,6 +1,32 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw, RouteComponent } from 'vue-router'
 import Layout from '@/layout'
+import ParentView from '@/layout/ParentView'
 import { AlbumsSharp, AtCircleSharp, BackspaceSharp, BarChart } from '@vicons/ionicons5'
+import data from './data.json'
+
+function loadView(view: RouteComponent) {
+  return () => import(`@/views/${view}`)
+}
+
+export function asyncJsonRoutes(routes: Array<RouteRecordRaw>) {
+  const asyncRouters = routes.filter(route => {
+    if (route.component) {
+      if (route.component === 'Layout') {
+        route.component = Layout
+      } else if (route.component === 'ParentView') {
+        route.component = ParentView
+      } else {
+        route.component = loadView(route.component)
+      }
+    }
+    // 如果有子路由，递归添加
+    if (route.children && route.children.length > 0) {
+      asyncJsonRoutes(route.children)
+    }
+    return true
+  })
+  return asyncRouters
+}
 
 /**
  * 参数解析：
@@ -17,6 +43,9 @@ import { AlbumsSharp, AtCircleSharp, BackspaceSharp, BarChart } from '@vicons/io
  * / 若你想不管路由下面的 children 声明的个数都显示你的根路由
  * / 你可以设置 alwaysShow: true，这样它就会忽略之前定义的规则，一直显示根路由
  * * alwaysShow: true,
+ *
+ * / 是否隐藏
+ * * hidden: false
  *
  * / 设置该路由进入的权限，支持多个权限叠加
  * * roles: ['admin', 'editor'],
@@ -64,6 +93,10 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: {
+      title: '主板',
+      icon: BackspaceSharp,
+    },
     children: [
       {
         path: 'dashboard',
@@ -80,6 +113,10 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/documentation',
     component: Layout,
+    meta: {
+      title: '文档',
+      icon: BackspaceSharp,
+    },
     children: [
       {
         path: 'index',
@@ -95,62 +132,4 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   },
 ]
 
-export const asyncRoutes: Array<RouteRecordRaw> = [
-  {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/page',
-    name: 'Permission',
-    meta: {
-      alwaysShow: true,
-      title: '权限页面',
-      icon: BackspaceSharp,
-      roles: ['admin', 'editor'],
-    },
-    children: [
-      {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
-        meta: {
-          title: '权限Page',
-          roles: ['admin'], // or you can only set roles in sub nav
-        },
-      },
-      {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
-        meta: {
-          title: '权限Directive',
-          // if do not set roles, means: this page does not require permission
-        },
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: '权限Role',
-          roles: ['admin'],
-        },
-      },
-    ],
-  },
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons'),
-        name: 'Icons',
-        meta: {
-          title: '图标',
-          icon: BarChart,
-          noCache: true,
-        },
-      },
-    ],
-  },
-]
+export const asyncRoutes: Array<RouteRecordRaw> = asyncJsonRoutes(data as Array<RouteRecordRaw>)
