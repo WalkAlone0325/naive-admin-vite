@@ -1,4 +1,5 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, CSSProperties, Transition } from 'vue'
+import logo from '@/assets/logo.png'
 
 export default defineComponent({
   name: 'Logo',
@@ -10,8 +11,30 @@ export default defineComponent({
   setup(props) {
     const title = ref('后台管理系统')
 
+    // styles
+    const logoStyle: CSSProperties = {
+      display: 'flex',
+      width: '100%',
+      height: '50px',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
+    const imgStyle: CSSProperties = {
+      width: '30px',
+      height: '30px',
+    }
+
     return () => {
-      return <div v-show={!props.collapsed}>{title.value}</div>
+      return (
+        <div style={logoStyle}>
+          <img style={imgStyle} src={logo} alt="" />
+          <Transition mode="in-out">
+            <h3 style={{ marginLeft: '20px' }} v-show={!props.collapsed}>
+              {title.value}
+            </h3>
+          </Transition>
+        </div>
+      )
     }
   },
 })

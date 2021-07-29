@@ -4,29 +4,30 @@ import ParentView from '@/layout/ParentView'
 import { AlbumsSharp, AtCircleSharp, BackspaceSharp, BarChart } from '@vicons/ionicons5'
 import data from './data.json'
 
-function loadView(view: RouteComponent) {
-  return () => import(`@/views/${view}`)
-}
+// function loadView(view: RouteComponent) {
+//   // @vite-ignore
+//   return () => import(`@/views/${view}`)
+// }
 
-export function asyncJsonRoutes(routes: Array<RouteRecordRaw>) {
-  const asyncRouters = routes.filter(route => {
-    if (route.component) {
-      if (route.component === 'Layout') {
-        route.component = Layout
-      } else if (route.component === 'ParentView') {
-        route.component = ParentView
-      } else {
-        route.component = loadView(route.component)
-      }
-    }
-    // 如果有子路由，递归添加
-    if (route.children && route.children.length > 0) {
-      asyncJsonRoutes(route.children)
-    }
-    return true
-  })
-  return asyncRouters
-}
+// export function asyncJsonRoutes(routes: Array<RouteRecordRaw>) {
+//   const asyncRouters = routes.filter(route => {
+//     if (route.component) {
+//       if (route.component === 'Layout') {
+//         route.component = Layout
+//       } else if (route.component === 'ParentView') {
+//         route.component = ParentView
+//       } else {
+//         route.component = loadView(route.component)
+//       }
+//     }
+//     // 如果有子路由，递归添加
+//     if (route.children && route.children.length > 0) {
+//       asyncJsonRoutes(route.children)
+//     }
+//     return true
+//   })
+//   return asyncRouters
+// }
 
 /**
  * 参数解析：
@@ -93,15 +94,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    meta: {
-      title: '主板',
-      icon: BackspaceSharp,
-    },
     children: [
       {
-        path: 'dashboard',
+        path: '/dashboard',
         name: 'Dashboard',
-        component: () => import('@/views/dashboard'),
+        component: () => import('@/views/dashboard/index'),
         meta: {
           title: 'Dashboard',
           icon: AlbumsSharp,
@@ -113,14 +110,10 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/documentation',
     component: Layout,
-    meta: {
-      title: '文档',
-      icon: BackspaceSharp,
-    },
     children: [
       {
         path: 'index',
-        component: () => import('@/views/documentation'),
+        component: () => import('@/views/documentation/index'),
         name: 'Documentation',
         meta: {
           title: '文档',
@@ -130,6 +123,82 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: '/guide',
+    component: Layout,
+    redirect: '/guide/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/guide/index'),
+        name: 'Guide',
+        meta: {
+          title: 'Guide',
+          icon: AtCircleSharp,
+          noCache: true,
+        },
+      },
+    ],
+  },
 ]
 
-export const asyncRoutes: Array<RouteRecordRaw> = asyncJsonRoutes(data as Array<RouteRecordRaw>)
+// export const asyncRoutes: Array<RouteRecordRaw> = asyncJsonRoutes(data as Array<RouteRecordRaw>)
+
+export const asyncRoutes: Array<RouteRecordRaw> = [
+  {
+    path: '/permission',
+    component: Layout,
+    redirect: '/permission/page',
+    name: 'Permission',
+    meta: {
+      alwaysShow: true, // will always show the root menu
+      title: 'Permission',
+      icon: BackspaceSharp,
+      roles: ['admin', 'editor'], // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'page',
+        component: () => import('@/views/permission/page'),
+        name: 'PagePermission',
+        meta: {
+          title: 'Page Permission',
+          icon: AlbumsSharp,
+          roles: ['admin'], // or you can only set roles in sub nav
+        },
+      },
+      {
+        path: 'directive',
+        component: () => import('@/views/permission/directive'),
+        name: 'DirectivePermission',
+        meta: {
+          title: 'Directive Permission',
+          icon: AlbumsSharp,
+        },
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/permission/role'),
+        name: 'RolePermission',
+        meta: {
+          title: 'Role Permission',
+          icon: AlbumsSharp,
+          roles: ['admin'],
+          hidden: true,
+        },
+      },
+    ],
+  },
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: { title: '图标', icon: BarChart, noCache: true },
+      },
+    ],
+  },
+]

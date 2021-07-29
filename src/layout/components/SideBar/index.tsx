@@ -1,138 +1,41 @@
-import { defineComponent, ref, Component, h, Ref, markRaw, computed } from 'vue'
-import { NIcon, NLayoutSider, NMenu, MenuOption } from 'naive-ui'
-import Logo from './Logo'
-import {
-  BookOutline as BookIcon,
-  PersonOutline as PersonIcon,
-  WineOutline as WineIcon,
-} from '@vicons/ionicons5'
+import { defineComponent, ref, computed, toRaw } from 'vue'
+import { NLayoutSider, NMenu } from 'naive-ui'
 import { useStore } from '@/store'
-import { useRoutesToMenu } from './use-menu'
-import { useRouter } from 'vue-router'
-
-function renderIcon(icon: Component) {
-  return () => h(NIcon, null, { default: () => h(icon) })
-}
+import { useRoute } from 'vue-router'
+import { useRoutesToMenus } from './use-menus'
 
 export default defineComponent({
   name: 'SideBar',
-  setup() {
-    const router = useRouter()
+  props: {
+    collapsed: {
+      type: Boolean,
+    },
+  },
+  setup(props) {
+    const route = useRoute()
     const store = useStore()
 
-    const activeKey = ref(null)
-    const menuOptions: Ref<Array<MenuOption>> = ref([
-      {
-        label: '且听风吟',
-        key: 'hear-the-wind-sing',
-        icon: renderIcon(BookIcon),
-      },
-      {
-        label: '1973年的弹珠玩具',
-        key: 'pinball-1973',
-        icon: renderIcon(BookIcon),
-        children: [
-          {
-            label: '鼠',
-            key: 'rat',
-          },
-        ],
-      },
-      {
-        label: '寻羊冒险记',
-        key: 'a-wild-sheep-chase',
-        icon: renderIcon(BookIcon),
-      },
-      {
-        label: '舞，舞，舞',
-        key: 'dance-dance-dance',
-        icon: renderIcon(BookIcon),
-        children: [
-          {
-            type: 'group',
-            label: '人物',
-            key: 'people',
-            children: [
-              {
-                label: '叙事者',
-                key: 'narrator',
-                icon: renderIcon(PersonIcon),
-              },
-              {
-                label: '羊男',
-                key: 'sheep-man',
-                icon: renderIcon(PersonIcon),
-              },
-            ],
-          },
-          {
-            label: '饮品',
-            key: 'beverage',
-            icon: renderIcon(WineIcon),
-            children: [
-              {
-                label: '威士忌',
-                key: 'whisky',
-              },
-            ],
-          },
-          {
-            label: '食物',
-            key: 'food',
-            children: [
-              {
-                label: '三明治',
-                key: 'sandwich',
-              },
-            ],
-          },
-          {
-            label: '过去增多，未来减少',
-            key: 'the-past-increases-the-future-recedes',
-          },
-        ],
-      },
-    ])
+    const activeKey = computed(() => route.path)
 
     // computed
-    const collapsed = computed(() => !store.state.app.sidebar.opened)
+
     // const routes = computed(() => store.getters.routesData)
-    const routes = computed(() => store.getters.routesData)
-    console.log(routes.value)
-    const menu = useRoutesToMenu(routes.value)
-    console.log(menu)
+    const routes = computed(() => store.state.permission.routes)
+
+    // 获取菜单表
+    const menu = useRoutesToMenus(toRaw(routes.value))
 
     // methods
-    // const handleClickMenuItem = (key, item) => {
-    //   console.log(key, item)
-    //   if (/http(s)?:/.test(key)) {
-    //     window.open(key)
-    //   } else {
-    //     router.push({ name: key })
-    //   }
-    // }
 
     return () => {
       return (
-        <NLayoutSider
-          bordered
-          collapseMode="width"
+        <NMenu
+          collapsed={props.collapsed}
           collapsedWidth={64}
-          width={240}
-          collapsed={collapsed.value}
-          showTrigger
-          onCollapse={() => store.dispatch('app/toggleSideBar')}
-          onExpand={() => store.dispatch('app/toggleSideBar')}>
-          <Logo collapsed={collapsed.value} />
-          <NMenu
-            collapsed={collapsed.value}
-            collapsedWidth={64}
-            collapsedIconSize={22}
-            options={menu}
-            v-model={activeKey}
-          />
-          {/* onUpdateValue={handleClickMenuItem} */}
-        </NLayoutSider>
+          collapsedIconSize={22}
+          options={menu}
+          v-model={activeKey}
+        />
       )
     }
   },
