@@ -3,6 +3,7 @@ import Layout from '@/layout'
 import ParentView from '@/layout/ParentView'
 import { AlbumsSharp, AtCircleSharp, BackspaceSharp, BarChart } from '@vicons/ionicons5'
 import data from './data.json'
+import ErrorPage from '@/views/error/not-found'
 
 // function loadView(view: RouteComponent) {
 //   // @vite-ignore
@@ -73,6 +74,22 @@ import data from './data.json'
  * }
  */
 export const constantRoutes: Array<RouteRecordRaw> = [
+  // 错误页
+  {
+    path: '/:path(.*)*',
+    name: 'ErrorPage',
+    component: Layout,
+    meta: { hidden: true, title: '错误页' },
+    children: [
+      {
+        path: '/:path(.*)*',
+        name: 'ErrorPage',
+        component: ErrorPage,
+        meta: { hidden: true, title: '错误页' },
+      },
+    ],
+  },
+  // 重定向页
   {
     path: '/redirect',
     component: Layout,

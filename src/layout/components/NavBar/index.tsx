@@ -2,6 +2,7 @@ import { defineComponent, computed } from 'vue'
 import { NLayoutHeader } from 'naive-ui'
 import './index.scss'
 import SideBar from '../SideBar'
+import Breadcrumb from '@/components/Breadcrumb'
 import { useSettings } from '@/hooks/use-settings'
 import { useStore } from '@/store'
 
@@ -26,6 +27,8 @@ export default defineComponent({
           ) : (
             <div></div>
           )}
+          {/* 面包屑 */}
+          <Breadcrumb />
         </NLayoutHeader>
       )
     }
