@@ -1,8 +1,9 @@
-.n-layout {
+.layout-container {
   width: 100%;
   height: 100%;
 }
 .content-container {
-  max-height: 100vh !important;
-  overflow: hidden !important;
+  min-height: 100vh;
+  flex: auto;
+  // overflow: hidden;
 }

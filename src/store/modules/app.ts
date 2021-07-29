@@ -34,6 +34,13 @@ const AppModule: Module<IAppState, IRootState> = {
       state.sidebar.withoutAnimation = withoutAnimation
     },
 
+    // 打开 sidebar
+    OPEN_SIDEBAR: (state, withoutAnimation) => {
+      Cookies.set('sidebarStatus', '1')
+      state.sidebar.opened = true
+      state.sidebar.withoutAnimation = withoutAnimation
+    },
+
     // 切换 device
     TOGGLE_DEVICE: (state, device) => {
       state.device = device
@@ -51,6 +58,9 @@ const AppModule: Module<IAppState, IRootState> = {
     },
     closeSideBar({ commit }, { withoutAnimation }) {
       commit('CLOSE_SIDEBAR', withoutAnimation)
+    },
+    openSideBar({ commit }, { withoutAnimation }) {
+      commit('OPEN_SIDEBAR', withoutAnimation)
     },
     toggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)

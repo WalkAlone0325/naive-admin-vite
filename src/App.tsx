@@ -19,9 +19,10 @@ export default defineComponent({
     // 挂载全局组件
     // window.$dialog = useDialog()
     // window.$message = useMessage()
+    // theme = { darkTheme }
 
     return () => (
-      <NConfigProvider theme={darkTheme} locale={zhCN} dateLocale={dateZhCN}>
+      <NConfigProvider locale={zhCN} dateLocale={dateZhCN}>
         <NDialogProvider>
           <NNotificationProvider>
             <NMessageProvider>

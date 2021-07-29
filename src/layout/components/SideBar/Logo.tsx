@@ -1,4 +1,4 @@
-import { defineComponent, ref, CSSProperties, Transition } from 'vue'
+import { defineComponent, ref, CSSProperties } from 'vue'
 import logo from '@/assets/logo.png'
 
 export default defineComponent({
@@ -28,11 +28,9 @@ export default defineComponent({
       return (
         <div style={logoStyle}>
           <img style={imgStyle} src={logo} alt="" />
-          <Transition mode="in-out">
-            <h3 style={{ marginLeft: '20px' }} v-show={!props.collapsed}>
-              {title.value}
-            </h3>
-          </Transition>
+          <h3 style={{ marginLeft: '20px' }} v-show={!props.collapsed}>
+            {title.value}
+          </h3>
         </div>
       )
     }

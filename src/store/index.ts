@@ -6,6 +6,7 @@ import getters from './getters'
 import app from './modules/app'
 import permission from './modules/permission'
 import tagsView from './modules/tags-view'
+import settings from './modules/settings'
 
 // 定义注入类型
 export const key: InjectionKey<Store<IRootState>> = Symbol()
@@ -16,6 +17,7 @@ const store = createStore({
     app,
     permission,
     tagsView,
+    settings,
   },
 })
 

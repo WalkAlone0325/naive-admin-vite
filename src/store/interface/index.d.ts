@@ -1,9 +1,11 @@
+import { ISettings } from '@/settings'
 import { RouteRecordRaw } from 'vue-router'
 
 export interface IRootState {
   app: IAppState
   tagsView: ITagsViewState
   permission: IPermissState
+  settings: ISettings
 }
 
 export interface IAppState {
