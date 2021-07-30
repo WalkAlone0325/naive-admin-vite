@@ -1,5 +1,4 @@
-import { defineComponent, computed, ref, onMounted, nextTick } from 'vue'
-import './index.scss'
+import { defineComponent, computed, ref, onMounted, nextTick, CSSProperties } from 'vue'
 import SideBar from '../SideBar'
 import Breadcrumb from '@/components/Breadcrumb'
 import { useSettings } from '@/hooks/use-settings'
@@ -10,25 +9,37 @@ import { NSpace } from 'naive-ui'
 import DropProfile from '@/components/DropProfile'
 import Settings from '@/components/Settings'
 import ConfigSettings from '../ConfigSettings'
+import classes from './index.module.scss'
 
 export default defineComponent({
   name: 'NavBar',
-  props: {
-    inverted: {
-      type: Boolean,
-    },
-  },
-  setup(props) {
+  setup() {
     const store = useStore()
 
-    const { navMode } = useSettings()
+    const { navMode, navTheme } = useSettings()
     const collapsed = computed(() => !store.state.app.sidebar.opened)
+
+    // css
+    const navBarConStyle: CSSProperties = {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: '0 20px',
+      height: '64px',
+      lineHeight: '64px',
+    }
+    const rightMenuConStyle: CSSProperties = {
+      display: 'flex',
+    }
 
     return () => {
       return (
-        <div class="navbar-container">
+        <div
+          style={navBarConStyle}
+          class={navTheme.value === 'header-dark' ? '' : classes.layoutHeaderLight}>
           {navMode.value === 'horizontal' ? (
-            <SideBar mode="horizontal" v-model={[collapsed.value, 'collapsed']} />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <SideBar mode="horizontal" v-model={[collapsed.value, 'collapsed']} />
+            </div>
           ) : (
             // 面包屑
             // <Breadcrumb />
@@ -36,7 +47,7 @@ export default defineComponent({
           )}
 
           {/* 右侧菜单 */}
-          <div class="right-menu-container">
+          <div style={rightMenuConStyle}>
             <NSpace size="large">
               <GitAddress />
               <Screenfull />

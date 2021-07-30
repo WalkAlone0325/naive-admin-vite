@@ -5,7 +5,7 @@ export function useDesignSettings() {
   const store = useStore()
 
   return {
-    darkTheme: computed(() => store.state.designSettings.darkTheme),
+    isDarkTheme: computed(() => store.state.designSettings.isDarkTheme),
     appTheme: computed(() => store.state.designSettings.appTheme),
     appThemeList: computed(() => store.state.designSettings.appThemeList),
   }

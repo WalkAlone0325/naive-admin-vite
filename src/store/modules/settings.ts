@@ -42,6 +42,14 @@ const settingsModule: Module<ISettings, IRootState> = {
     CLOSE_CONFIG_SETTINGS: state => {
       state.active = false
     },
+
+    TOGGLE_NAV_MODE: (state, mode: ISettings['navMode']) => {
+      state.navMode = mode
+    },
+
+    TOGGLE_NAV_THEME: (state, theme: ISettings['navTheme']) => {
+      state.navTheme = theme
+    },
   },
   actions: {
     setNavTheme({ commit }, value) {
@@ -55,6 +63,16 @@ const settingsModule: Module<ISettings, IRootState> = {
     // 关闭配置栏
     closeConfigSettings({ commit }) {
       commit('CLOSE_CONFIG_SETTINGS')
+    },
+
+    // 切换导航模式
+    toggleNavMode({ commit }, mode: ISettings['navMode']) {
+      commit('TOGGLE_NAV_MODE', mode)
+    },
+
+    // 切换导航主题色
+    toggleNavTheme({ commit }, theme: ISettings['navTheme']) {
+      commit('TOGGLE_NAV_THEME', theme)
     },
   },
 }

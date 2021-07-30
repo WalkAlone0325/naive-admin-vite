@@ -67,7 +67,7 @@ export default defineComponent({
           <NLayout class="content-container" nativeScrollbar={false}>
             {/* 头部内容 */}
             <NLayoutHeader class="layout-header" inverted={inverted.value} bordered>
-              <NavBar inverted={inverted.value} />
+              <NavBar />
             </NLayoutHeader>
 
             {/* 主体内容 */}

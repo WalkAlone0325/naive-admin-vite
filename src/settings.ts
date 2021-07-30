@@ -43,12 +43,12 @@ export interface ISettings {
   permissionMode?: 'ROLE'
 
   // 配置栏
-  active?: boolean
+  active: boolean
 }
 
 export default {
   navMode: 'vertical',
-  navTheme: 'light',
+  navTheme: 'dark',
   headerSetting: {
     bgColor: '#fff',
     fixed: false,

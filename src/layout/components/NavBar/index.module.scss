@@ -1,0 +1,20 @@
+.layoutHeaderLight {
+  background: #fff;
+  color: #515a6e;
+
+  .n-icon {
+    color: #515a6e;
+  }
+
+  .layout-header-left {
+    ::v-deep(.n-breadcrumb .n-breadcrumb-item:last-child .n-breadcrumb-item__link) {
+      color: #515a6e;
+    }
+  }
+
+  .layout-header-trigger {
+    &:hover {
+      background: #f8f8f9;
+    }
+  }
+}

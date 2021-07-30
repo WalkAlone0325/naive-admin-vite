@@ -9,9 +9,10 @@ import {
   useMessage,
   useDialog,
 } from 'naive-ui'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { RouterView } from 'vue-router'
 import './App.scss'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'App',
@@ -20,9 +21,13 @@ export default defineComponent({
     // window.$dialog = useDialog()
     // window.$message = useMessage()
     // theme = { darkTheme }
+    const store = useStore()
+    const hasDarkTheme = computed(() =>
+      store.state.designSettings.isDarkTheme ? darkTheme : undefined,
+    )
 
     return () => (
-      <NConfigProvider theme={darkTheme} locale={zhCN} dateLocale={dateZhCN}>
+      <NConfigProvider theme={hasDarkTheme.value} locale={zhCN} dateLocale={dateZhCN}>
         <NDialogProvider>
           <NNotificationProvider>
             <NMessageProvider>

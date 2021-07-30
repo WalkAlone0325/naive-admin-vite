@@ -24,7 +24,7 @@ export interface IPermissState {
 }
 
 export interface IDesignSettings {
-  darkTheme: boolean
+  isDarkTheme: boolean
   appTheme: string
   appThemeList: string[]
 }
