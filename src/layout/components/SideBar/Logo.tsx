@@ -15,7 +15,7 @@ export default defineComponent({
     const logoStyle: CSSProperties = {
       display: 'flex',
       width: '100%',
-      height: '50px',
+      height: '64px',
       justifyContent: 'center',
       alignItems: 'center',
     }

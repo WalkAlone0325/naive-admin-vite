@@ -372,6 +372,11 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@vicons/antd@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.nlark.com/@vicons/antd/download/@vicons/antd-0.10.0.tgz#17661ed654122a6450926f40ceba9fd67ae2e036"
+  integrity sha1-F2Ye1lQSKmRQkm9Azrqf1nri4DY=
+
 "@vicons/ionicons5@^0.10.0":
   version "0.10.0"
   resolved "https://registry.nlark.com/@vicons/ionicons5/download/@vicons/ionicons5-0.10.0.tgz#94641a71850d9e251f1059b67da4c19326bce962"
@@ -497,6 +502,21 @@
   version "3.1.5"
   resolved "https://registry.nlark.com/@vue/shared/download/@vue/shared-3.1.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Fshared%2Fdownload%2F%40vue%2Fshared-3.1.5.tgz#74ee3aad995d0a3996a6bb9533d4d280514ede03"
   integrity sha1-dO46rZldCjmWpruVM9TSgFFO3gM=
+
+"@vueuse/core@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.nlark.com/@vueuse/core/download/@vueuse/core-5.2.0.tgz#c2c0b89d9506fdfca41cd3056e38478226bc5e31"
+  integrity sha1-wsC4nZUG/fykHNMFbjhHgia8XjE=
+  dependencies:
+    "@vueuse/shared" "5.2.0"
+    vue-demi "*"
+
+"@vueuse/shared@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.nlark.com/@vueuse/shared/download/@vueuse/shared-5.2.0.tgz#894921cf5e5fc7f9afa7d7870800b0c9cd265e0c"
+  integrity sha1-iUkhz15fx/mvp9eHCACwyc0mXgw=
+  dependencies:
+    vue-demi "*"
 
 ansi-regex@^5.0.0:
   version "5.0.0"
@@ -1426,6 +1446,11 @@ vooks@^0.2.4, vooks@^0.2.6:
   integrity sha1-+tanjHLjlEPlYoUzewhDuq7tDz4=
   dependencies:
     evtd "^0.2.2"
+
+vue-demi@*:
+  version "0.11.2"
+  resolved "https://registry.nlark.com/vue-demi/download/vue-demi-0.11.2.tgz#faa06da53887c493a695b997f4fcb4784a667990"
+  integrity sha1-+qBtpTiHxJOmlbmX9Py0eEpmeZA=
 
 vue-router@^4.0.10:
   version "4.0.10"

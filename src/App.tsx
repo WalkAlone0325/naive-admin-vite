@@ -22,7 +22,7 @@ export default defineComponent({
     // theme = { darkTheme }
 
     return () => (
-      <NConfigProvider locale={zhCN} dateLocale={dateZhCN}>
+      <NConfigProvider theme={darkTheme} locale={zhCN} dateLocale={dateZhCN}>
         <NDialogProvider>
           <NNotificationProvider>
             <NMessageProvider>

@@ -62,3 +62,14 @@ div:focus {
     height: 100%;
   }
 }
+
+// 图标、头像上下居中
+.n-icon,
+.n-avatar {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.n-layout-page-header {
+  margin: 0 -10px;
+}

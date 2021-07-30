@@ -1,5 +1,5 @@
 import { defineComponent, computed, unref, onMounted } from 'vue'
-import { NLayout, NLayoutSider, NLayoutFooter } from 'naive-ui'
+import { NLayout, NLayoutSider, NLayoutFooter, NLayoutHeader, NLayoutContent } from 'naive-ui'
 import './index.scss'
 import SideBar from './components/SideBar'
 import NavBar from './components/NavBar'
@@ -32,9 +32,9 @@ export default defineComponent({
     const watchWidth = () => {
       const width = document.body.clientWidth
       if (width <= 950) {
-        store.dispatch('app/openSideBar', { withoutAnimation: false })
-      } else {
         store.dispatch('app/closeSideBar', { withoutAnimation: false })
+      } else {
+        store.dispatch('app/openSideBar', { withoutAnimation: false })
       }
     }
 
@@ -65,8 +65,17 @@ export default defineComponent({
             <div></div>
           )}
           <NLayout class="content-container" nativeScrollbar={false}>
-            <NavBar inverted={inverted.value} />
-            <AppMain />
+            {/* 头部内容 */}
+            <NLayoutHeader class="layout-header" inverted={inverted.value} bordered>
+              <NavBar inverted={inverted.value} />
+            </NLayoutHeader>
+
+            {/* 主体内容 */}
+            <NLayoutContent class="content-main" contentStyle={{ padding: '24px' }}>
+              <AppMain />
+            </NLayoutContent>
+
+            {/* 底部内容 */}
             <NLayoutFooter bordered>底部</NLayoutFooter>
           </NLayout>
         </NLayout>

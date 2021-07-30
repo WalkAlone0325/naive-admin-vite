@@ -7,7 +7,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@vicons/antd": "^0.10.0",
     "@vicons/ionicons5": "^0.10.0",
+    "@vueuse/core": "^5.2.0",
     "js-cookie": "^3.0.0",
     "naive-ui": "^2.15.7",
     "nprogress": "^0.2.0",

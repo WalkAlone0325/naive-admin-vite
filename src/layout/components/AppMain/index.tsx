@@ -1,5 +1,4 @@
 import { computed, defineComponent, KeepAlive, Transition } from 'vue'
-import { NLayoutContent } from 'naive-ui'
 import { RouteLocationNormalizedLoaded, RouterView, useRoute } from 'vue-router'
 import { useStore } from '@/store'
 
@@ -15,7 +14,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <NLayoutContent contentStyle={{ padding: '24px' }}>
+        <div>
           <RouterView>
             {{
               default: (
@@ -33,7 +32,7 @@ export default defineComponent({
               },
             }}
           </RouterView>
-        </NLayoutContent>
+        </div>
       )
     }
   },

@@ -41,6 +41,9 @@ export interface ISettings {
   }
   //菜单权限模式 ROLE 前端固定角色  BACK 动态获取
   permissionMode?: 'ROLE'
+
+  // 配置栏
+  active?: boolean
 }
 
 export default {

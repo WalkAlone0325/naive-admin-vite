@@ -1,7 +1,6 @@
 import { renderIcon } from '@/layout/components/SideBar/use-menus'
-import { MenuOption, NBreadcrumb, NBreadcrumbItem, NDropdown } from 'naive-ui'
-import { pageItems } from 'naive-ui/lib/pagination/src/utils'
-import { computed, defineComponent, Fragment, Component, resolveComponent } from 'vue'
+import { MenuOption, NBreadcrumb, NBreadcrumbItem, NDropdown, NIcon, NSpace } from 'naive-ui'
+import { computed, defineComponent, Fragment } from 'vue'
 import { RouteRecordRaw, useRoute } from 'vue-router'
 
 export default defineComponent({
@@ -10,20 +9,22 @@ export default defineComponent({
     const route = useRoute()
 
     const generator = (routerMap: RouteRecordRaw[]) => {
-      return routerMap.map(route => {
-        const currentMenu: MenuOption = {
-          label: route.meta?.title,
-          key: route.name as string,
-          disabled: route.path === '/',
-          icon: renderIcon(route.meta?.icon),
-        }
-        // 是否有子菜单，并递归处理
-        if (route.children && route.children.length > 0) {
-          // Recursion
-          currentMenu.children = generator(route.children)
-        }
-        return currentMenu
-      })
+      return routerMap
+        .filter(item => item.name)
+        .map(route => {
+          const currentMenu: MenuOption = {
+            label: route.meta?.title,
+            key: route.name as string,
+            disabled: route.path === '/',
+            icon: renderIcon(route.meta?.icon),
+          }
+          // 是否有子菜单，并递归处理
+          if (route.children && route.children.length > 0) {
+            // Recursion
+            currentMenu.children = generator(route.children)
+          }
+          return currentMenu
+        })
     }
     console.log(route.matched)
 
@@ -32,7 +33,7 @@ export default defineComponent({
 
     // methods
     // 返回组件
-    const retComp = Icon => <Icon />
+    const retComp = (Icon: any) => <Icon style={{ marginRight: '8px' }} />
 
     const dropdownSelect = () => {}
 
@@ -48,7 +49,6 @@ export default defineComponent({
                   <span>
                     <Fragment>
                       {retComp(item.icon)}
-                      {/* <component is={item.icon} /> */}
                       {item.label}
                     </Fragment>
                   </span>
@@ -60,7 +60,6 @@ export default defineComponent({
               <span>
                 {item.icon ? (
                   <Fragment>
-                    {/* <component is={item.icon} /> */}
                     {retComp(item.icon)}
                     {item.label}
                   </Fragment>
@@ -75,21 +74,3 @@ export default defineComponent({
     )
   },
 })
-{
-  /* {breadcrumbList.value.map(item => (
-          <div></div>
-        )} */
-}
-{
-  /* <NBreadcrumbItem key={item.key}>
-            {item.children?.length ?
-            <NDropdown options={item.children} onSelect={dropdownSelect}>
-              <span>
-                {item.icon ?
-                  <component is={item.icon} />{item.label}
-                  :<Fragment></Fragment>
-                }
-            </span>
-            </NDropdown>}
-          </NBreadcrumbItem> */
-}

@@ -6,6 +6,7 @@ export interface IRootState {
   tagsView: ITagsViewState
   permission: IPermissState
   settings: ISettings
+  designSettings: IDesignSettings
 }
 
 export interface IAppState {
@@ -20,6 +21,12 @@ export interface IAppState {
 export interface IPermissState {
   routes: RouteRecordRaw[]
   addRoutes: RouteRecordRaw[]
+}
+
+export interface IDesignSettings {
+  darkTheme: boolean
+  appTheme: string
+  appThemeList: string[]
 }
 
 export interface ITagsViewState {
