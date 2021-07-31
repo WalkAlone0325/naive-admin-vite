@@ -1,4 +1,13 @@
-import { defineComponent, computed, unref, onMounted, watch, Fragment, ref } from 'vue'
+import {
+  defineComponent,
+  computed,
+  unref,
+  onMounted,
+  watch,
+  Fragment,
+  ref,
+  CSSProperties,
+} from 'vue'
 import { NLayout, NLayoutSider, NLayoutFooter, NLayoutHeader, NLayoutContent } from 'naive-ui'
 import classes from './index.module.scss'
 import SideBar from './components/SideBar'
@@ -50,6 +59,26 @@ export default defineComponent({
       window.addEventListener('resize', watchWidth)
     })
 
+    // watch
+    let marginStyle: CSSProperties = {}
+    watch(
+      () => fixedHeader.value,
+      () => {
+        if (fixedHeader.value === 'absolute') {
+          marginStyle = {
+            marginTop: '64px',
+          }
+        } else {
+          marginStyle = {
+            marginTop: 0,
+          }
+        }
+      },
+    )
+    // const marginStyle: CSSProperties: {
+    //   fixedHeader.value === 'absolute' ? 'margin-top: "64px"' : 'margin-top: 0'
+    // }
+
     return () => {
       return (
         <NLayout class={classes.layoutContainer} position={fixedHeader.value} hasSider>
@@ -63,7 +92,7 @@ export default defineComponent({
               width={leftMenuWidth.value}
               inverted={inverted.value}
               collapsed={collapsed.value}
-              showTrigger
+              showTrigger={menuSetting.value!.isShowTrigger}
               onCollapse={() => store.dispatch('app/toggleSideBar')}
               onExpand={() => store.dispatch('app/toggleSideBar')}>
               <Logo collapsed={collapsed.value} />
@@ -79,7 +108,10 @@ export default defineComponent({
             </NLayoutHeader>
 
             {/* 主体内容 */}
-            <NLayoutContent class={classes.contentMain} contentStyle={{ padding: '24px' }}>
+            <NLayoutContent
+              class={classes.contentMain}
+              style={marginStyle}
+              contentStyle={{ padding: '24px' }}>
               <AppMain />
             </NLayoutContent>
 

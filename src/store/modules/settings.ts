@@ -59,6 +59,14 @@ const settingsModule: Module<ISettings, IRootState> = {
       state.multiTabsSetting!.fixed = !state.multiTabsSetting!.fixed
     },
 
+    TOGGLE_SHOW_TRIGGER: state => {
+      state.menuSetting!.isShowTrigger = !state.menuSetting!.isShowTrigger
+    },
+
+    TOGGLE_SHOW_RELOAD: state => {
+      state.headerSetting!.isReload = !state.headerSetting!.isReload
+    },
+
     TOGGLE_SHOW_CRUMB: state => {
       state.crumbsSetting!.show = !state.crumbsSetting!.show
     },
@@ -109,7 +117,11 @@ const settingsModule: Module<ISettings, IRootState> = {
     },
 
     /** 界面显示 */
-    // 切换是否固定多标签
+    // 是否显示侧边栏折叠样式
+    toggleShowTrigger({ commit }) {
+      commit('TOGGLE_SHOW_TRIGGER')
+    },
+    // 切换是否显示重载按钮
     toggleShowReload({ commit }) {
       commit('TOGGLE_SHOW_RELOAD')
     },

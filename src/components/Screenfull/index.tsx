@@ -9,7 +9,7 @@ export default defineComponent({
     const { toggle, isFullscreen } = useFullscreen()
 
     return () => (
-      <div>
+      <div style={{ cursor: 'pointer' }}>
         <NTooltip placement="bottom" trigger="hover">
           {{
             default: () => <span>全屏</span>,

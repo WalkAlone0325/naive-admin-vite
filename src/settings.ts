@@ -31,6 +31,8 @@ export interface ISettings {
     menuWidth?: number
     // 固定菜单 true
     fixed?: boolean
+    // 是否显示侧边栏折叠样式
+    isShowTrigger: boolean
   }
   // 面包屑
   crumbsSetting?: {
@@ -64,6 +66,7 @@ export default {
     minMenuWidth: 64,
     menuWidth: 240,
     fixed: true,
+    isShowTrigger: true,
   },
   crumbsSetting: {
     show: true,

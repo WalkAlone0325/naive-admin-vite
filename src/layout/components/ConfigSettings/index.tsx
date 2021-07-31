@@ -28,7 +28,8 @@ export default defineComponent({
     const active = computed(() => store.state.settings.active)
 
     const { isDarkTheme, appTheme, appThemeList } = useDesignSettings()
-    const { navMode, navTheme, headerSetting, multiTabsSetting, crumbsSetting } = useSettings()
+    const { navMode, navTheme, headerSetting, multiTabsSetting, crumbsSetting, menuSetting } =
+      useSettings()
 
     const toggleNavTheme = (theme: string) => {
       store.dispatch('settings/toggleNavTheme', theme)
@@ -200,6 +201,16 @@ export default defineComponent({
             <NDivider titlePlacement="center">界面显示</NDivider>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>显示侧边栏折叠样式</div>
+                <div>
+                  <NSwitch
+                    value={menuSetting.value!.isShowTrigger}
+                    onUpdateValue={() => store.dispatch('settings/toggleShowTrigger')}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
                 <div>显示重载页面按钮</div>
                 <div>
                   <NSwitch

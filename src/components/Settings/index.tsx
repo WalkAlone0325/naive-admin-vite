@@ -9,7 +9,7 @@ export default defineComponent({
     const store = useStore()
 
     return () => (
-      <div>
+      <div style={{ cursor: 'pointer' }}>
         <NTooltip placement="bottom-start" trigger="hover">
           {{
             default: () => <span>全局配置</span>,

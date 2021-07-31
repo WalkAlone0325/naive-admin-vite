@@ -8,7 +8,7 @@ export default defineComponent({
     const href = 'http://www.baidu.com'
 
     return () => (
-      <div>
+      <div style={{ cursor: 'pointer' }}>
         <NTooltip placement="bottom" trigger="hover">
           {{
             default: () => <span>GitHub</span>,
