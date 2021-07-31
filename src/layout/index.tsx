@@ -8,6 +8,7 @@ import Logo from './components/SideBar/Logo'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { useSettings } from '@/hooks/use-settings'
+import TagsView from './components/TagsView'
 
 export default defineComponent({
   name: 'Layout',
@@ -96,6 +97,8 @@ export default defineComponent({
             <NLayoutHeader inverted={inverted.value} position={fixedHeader.value} bordered>
               <NavBar />
             </NLayoutHeader>
+
+            <TagsView />
 
             {/* 主体内容 */}
             <NLayoutContent
