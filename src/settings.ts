@@ -48,10 +48,10 @@ export interface ISettings {
 
 export default {
   navMode: 'vertical',
-  navTheme: 'dark',
+  navTheme: 'light',
   headerSetting: {
     bgColor: '#fff',
-    fixed: false,
+    fixed: true,
     isReload: true,
   },
   showFooter: true,

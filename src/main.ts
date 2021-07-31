@@ -16,8 +16,8 @@ import 'vfonts/Lato.css'
 const app = createApp(App)
 
 app.use(router)
-app.use(store, key)
 
 router.isReady().then(() => {
+  app.use(store, key)
   app.mount('#app')
 })

@@ -1,0 +1,25 @@
+.layoutContainer {
+  height: 100%;
+}
+/* 左侧sider */
+.layoutSider {
+  min-height: 100%;
+  // transition: all 0.2s ease-in-out;
+}
+
+/* 右侧内容容器 */
+.rightContainer {
+  height: 100%;
+}
+
+// 主体
+.contentMain {
+  min-height: calc(100vh - 64px - 50px);
+  // border: 1px solid #000;
+  margin-top: 64px;
+}
+
+.footerContainer {
+  height: 50px;
+  max-height: 50px;
+}

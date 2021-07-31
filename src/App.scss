@@ -70,6 +70,10 @@ div:focus {
   cursor: pointer;
 }
 
+.n-layout-header.n-layout-header--absolute-positioned {
+  z-index: 11;
+}
+
 .n-layout-page-header {
   margin: 0 -10px;
 }

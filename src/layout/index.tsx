@@ -1,6 +1,6 @@
-import { defineComponent, computed, unref, onMounted } from 'vue'
+import { defineComponent, computed, unref, onMounted, watch, Fragment, ref } from 'vue'
 import { NLayout, NLayoutSider, NLayoutFooter, NLayoutHeader, NLayoutContent } from 'naive-ui'
-import './index.scss'
+import classes from './index.module.scss'
 import SideBar from './components/SideBar'
 import NavBar from './components/NavBar'
 import AppMain from './components/AppMain'
@@ -16,7 +16,8 @@ export default defineComponent({
     const store = useStore()
 
     // 全局设置
-    const { showFooter, navMode, navTheme, menuSetting, multiTabsSetting } = useSettings()
+    const { showFooter, headerSetting, navMode, navTheme, menuSetting, multiTabsSetting } =
+      useSettings()
 
     // 侧边栏
     const collapsed = computed(() => !store.state.app.sidebar.opened)
@@ -26,6 +27,12 @@ export default defineComponent({
     const leftMenuWidth = computed(() => {
       const { minMenuWidth, menuWidth } = unref(menuSetting)!
       return collapsed.value ? minMenuWidth : menuWidth
+    })
+    // 头部 菜单栏
+    const fixedHeader = computed(() => {
+      const fixed = unref(headerSetting.value?.fixed)
+      console.log(fixed)
+      return fixed ? 'absolute' : 'static'
     })
 
     // methods
@@ -45,11 +52,12 @@ export default defineComponent({
 
     return () => {
       return (
-        <NLayout class="layout-container" hasSider>
+        <NLayout class={classes.layoutContainer} position={fixedHeader.value} hasSider>
           {navMode.value === 'vertical' ? (
             <NLayoutSider
               bordered
               collapseMode="width"
+              class={classes.layoutSider}
               nativeScrollbar={false}
               collapsedWidth={64}
               width={leftMenuWidth.value}
@@ -64,19 +72,21 @@ export default defineComponent({
           ) : (
             <div></div>
           )}
-          <NLayout class="content-container" nativeScrollbar={false}>
+          <NLayout class={classes.rightContainer} nativeScrollbar={false}>
             {/* 头部内容 */}
-            <NLayoutHeader class="layout-header" inverted={inverted.value} bordered>
+            <NLayoutHeader inverted={inverted.value} position={fixedHeader.value} bordered>
               <NavBar />
             </NLayoutHeader>
 
             {/* 主体内容 */}
-            <NLayoutContent class="content-main" contentStyle={{ padding: '24px' }}>
+            <NLayoutContent class={classes.contentMain} contentStyle={{ padding: '24px' }}>
               <AppMain />
             </NLayoutContent>
 
             {/* 底部内容 */}
-            <NLayoutFooter bordered>底部</NLayoutFooter>
+            <NLayoutFooter class={classes.footerContainer} bordered>
+              底部
+            </NLayoutFooter>
           </NLayout>
         </NLayout>
       )

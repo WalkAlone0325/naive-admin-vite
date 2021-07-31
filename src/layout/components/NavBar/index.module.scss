@@ -18,3 +18,8 @@
     }
   }
 }
+.n-layout-header {
+  ::v-deep(.n-layout-header.n-layout-header--bordered) {
+    border-bottom: solid 1px rgb(239, 239, 245) !important;
+  }
+}

@@ -24,10 +24,11 @@ export default defineComponent({
       marginTop: '5px',
     }
 
+    // 全局配置抽屉
     const active = computed(() => store.state.settings.active)
 
     const { isDarkTheme, appTheme, appThemeList } = useDesignSettings()
-    const { navMode, navTheme } = useSettings()
+    const { navMode, navTheme, headerSetting, multiTabsSetting, crumbsSetting } = useSettings()
 
     const toggleNavTheme = (theme: string) => {
       store.dispatch('settings/toggleNavTheme', theme)
@@ -128,10 +129,7 @@ export default defineComponent({
                     {{
                       default: () => <span>暗色侧边栏</span>,
                       trigger: () => (
-                        <img
-                          src={navThemeDark}
-                          onClick={() => store.dispatch('settings/toggleNavTheme', 'dark')}
-                        />
+                        <img src={navThemeDark} onClick={() => toggleNavTheme('dark')} />
                       ),
                     }}
                   </NTooltip>
@@ -146,10 +144,7 @@ export default defineComponent({
                     {{
                       default: () => <span>白色侧边栏</span>,
                       trigger: () => (
-                        <img
-                          src={navThemeLight}
-                          onClick={() => store.dispatch('settings/toggleNavTheme', 'light')}
-                        />
+                        <img src={navThemeLight} onClick={() => toggleNavTheme('light')} />
                       ),
                     }}
                   </NTooltip>
@@ -164,10 +159,7 @@ export default defineComponent({
                     {{
                       default: () => <span>暗色顶栏</span>,
                       trigger: () => (
-                        <img
-                          src={headerThemeDark}
-                          onClick={() => store.dispatch('settings/toggleNavTheme', 'header-dark')}
-                        />
+                        <img src={headerThemeDark} onClick={() => toggleNavTheme('header-dark')} />
                       ),
                     }}
                   </NTooltip>
@@ -182,9 +174,71 @@ export default defineComponent({
 
             {/* 界面功能 */}
             <NDivider titlePlacement="center">界面功能</NDivider>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>固定顶栏</div>
+                <div>
+                  <NSwitch
+                    value={headerSetting.value?.fixed}
+                    onUpdateValue={() => store.dispatch('settings/toggleHeaderFixed')}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                <div>固定多标签</div>
+                <div>
+                  <NSwitch
+                    value={multiTabsSetting.value?.fixed}
+                    onUpdateValue={() => store.dispatch('settings/toggleTabsFixed')}
+                  />
+                </div>
+              </div>
+            </div>
 
             {/* 界面显示 */}
             <NDivider titlePlacement="center">界面显示</NDivider>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>显示重载页面按钮</div>
+                <div>
+                  <NSwitch
+                    value={headerSetting.value!.isReload}
+                    onUpdateValue={() => store.dispatch('settings/toggleShowReload')}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                <div>显示面包屑导航</div>
+                <div>
+                  <NSwitch
+                    value={crumbsSetting.value!.show}
+                    onUpdateValue={() => store.dispatch('settings/toggleShowCrumb')}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                <div>显示面包屑图标</div>
+                <div>
+                  <NSwitch
+                    value={crumbsSetting.value!.showIcon}
+                    onUpdateValue={() => store.dispatch('settings/toggleShowCrumbIcon')}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                <div>显示多标签</div>
+                <div>
+                  <NSwitch
+                    value={multiTabsSetting.value?.show}
+                    onUpdateValue={() => store.dispatch('settings/toggleShowTabs')}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </NDrawerContent>
       </NDrawer>

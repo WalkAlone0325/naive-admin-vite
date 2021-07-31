@@ -30,9 +30,9 @@ const settingsModule: Module<ISettings, IRootState> = {
     active: false,
   },
   mutations: {
-    SET_NAV_THEME: (state, value) => {
-      state.navTheme = value
-    },
+    // SET_NAV_THEME: (state, value) => {
+    //   state.navTheme = value
+    // },
 
     // 打开配置栏
     OPEN_CONFIG_SETTINGS: state => {
@@ -50,11 +50,31 @@ const settingsModule: Module<ISettings, IRootState> = {
     TOGGLE_NAV_THEME: (state, theme: ISettings['navTheme']) => {
       state.navTheme = theme
     },
+
+    TOGGLE_HEADER_FIXED: state => {
+      state.headerSetting!.fixed = !state.headerSetting!.fixed
+    },
+
+    TOGGLE_TABS_FIXED: state => {
+      state.multiTabsSetting!.fixed = !state.multiTabsSetting!.fixed
+    },
+
+    TOGGLE_SHOW_CRUMB: state => {
+      state.crumbsSetting!.show = !state.crumbsSetting!.show
+    },
+
+    TOGGLE_SHOW_CRUMB_ICON: state => {
+      state.crumbsSetting!.showIcon = !state.crumbsSetting!.showIcon
+    },
+
+    TOGGLE_SHOW_TABS: state => {
+      state.multiTabsSetting!.show = !state.multiTabsSetting!.show
+    },
   },
   actions: {
-    setNavTheme({ commit }, value) {
-      commit('SET_NAV_THEME', value)
-    },
+    // setNavTheme({ commit }, value) {
+    //   commit('SET_NAV_THEME', value)
+    // },
 
     // 打开配置栏
     openConfigSettings({ commit }) {
@@ -65,14 +85,48 @@ const settingsModule: Module<ISettings, IRootState> = {
       commit('CLOSE_CONFIG_SETTINGS')
     },
 
+    /** 导航栏模式 */
     // 切换导航模式
     toggleNavMode({ commit }, mode: ISettings['navMode']) {
       commit('TOGGLE_NAV_MODE', mode)
     },
 
+    /** 导航栏风格*/
     // 切换导航主题色
     toggleNavTheme({ commit }, theme: ISettings['navTheme']) {
       commit('TOGGLE_NAV_THEME', theme)
+    },
+
+    /** 界面功能 */
+    // 切换是否固定头部
+    toggleHeaderFixed({ commit }) {
+      commit('TOGGLE_HEADER_FIXED')
+    },
+
+    // 切换是否固定多标签
+    toggleTabsFixed({ commit }) {
+      commit('TOGGLE_TABS_FIXED')
+    },
+
+    /** 界面显示 */
+    // 切换是否固定多标签
+    toggleShowReload({ commit }) {
+      commit('TOGGLE_SHOW_RELOAD')
+    },
+
+    // 切换显示面包屑
+    toggleShowCrumb({ commit }) {
+      commit('TOGGLE_SHOW_CRUMB')
+    },
+
+    // 切换显示面包屑图标
+    toggleShowCrumbIcon({ commit }) {
+      commit('TOGGLE_SHOW_CRUMB_ICON')
+    },
+
+    // 切换显示多标签
+    toggleShowTabs({ commit }) {
+      commit('TOGGLE_SHOW_TABS')
     },
   },
 }
