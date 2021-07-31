@@ -1,34 +1,42 @@
 import { RouteRecordRaw, RouteComponent } from 'vue-router'
 import Layout from '@/layout'
 import ParentView from '@/layout/ParentView'
-import { AlbumsSharp, AtCircleSharp, BackspaceSharp, BarChart } from '@vicons/ionicons5'
+import {
+  AlbumsSharp,
+  AtCircleSharp,
+  BackspaceSharp,
+  BarChart,
+  TabletLandscape,
+  TabletPortrait,
+} from '@vicons/ionicons5'
 import data from './data.json'
 import ErrorPage from '@/views/error/not-found'
+import { TableOutlined, TabletFilled } from '@vicons/antd'
 
-// function loadView(view: RouteComponent) {
-//   // @vite-ignore
-//   return () => import(`@/views/${view}`)
-// }
+/*function loadView(view: RouteComponent) {
+  // @vite-ignore
+  return () => import(`@/views/${view}`)
+}
 
-// export function asyncJsonRoutes(routes: Array<RouteRecordRaw>) {
-//   const asyncRouters = routes.filter(route => {
-//     if (route.component) {
-//       if (route.component === 'Layout') {
-//         route.component = Layout
-//       } else if (route.component === 'ParentView') {
-//         route.component = ParentView
-//       } else {
-//         route.component = loadView(route.component)
-//       }
-//     }
-//     // 如果有子路由，递归添加
-//     if (route.children && route.children.length > 0) {
-//       asyncJsonRoutes(route.children)
-//     }
-//     return true
-//   })
-//   return asyncRouters
-// }
+export function asyncJsonRoutes(routes: Array<RouteRecordRaw>) {
+  const asyncRouters = routes.filter(route => {
+    if (route.component) {
+      if (route.component === 'Layout') {
+        route.component = Layout
+      } else if (route.component === 'ParentView') {
+        route.component = ParentView
+      } else {
+        route.component = loadView(route.component)
+      }
+    }
+    // 如果有子路由，递归添加
+    if (route.children && route.children.length > 0) {
+      asyncJsonRoutes(route.children)
+    }
+    return true
+  })
+  return asyncRouters
+}*/
 
 /**
  * 参数解析：
@@ -74,39 +82,6 @@ import ErrorPage from '@/views/error/not-found'
  * }
  */
 export const constantRoutes: Array<RouteRecordRaw> = [
-  // 错误页
-  {
-    path: '/:path(.*)*',
-    name: 'ErrorPage',
-    component: Layout,
-    meta: { hidden: true, title: '错误页' },
-    children: [
-      {
-        path: '/:path(.*)*',
-        name: 'ErrorPage',
-        component: ErrorPage,
-        meta: { hidden: true, title: '错误页' },
-      },
-    ],
-  },
-  // 重定向页
-  {
-    path: '/redirect',
-    component: Layout,
-    meta: { hidden: true },
-    children: [
-      {
-        path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect'),
-      },
-    ],
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    meta: { hidden: true },
-    component: () => import('@/views/login'),
-  },
   {
     path: '/',
     component: Layout,
@@ -135,25 +110,81 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: '文档',
           icon: AtCircleSharp,
-          affix: true,
+          // affix: true,
         },
       },
     ],
   },
   {
-    path: '/guide',
+    path: '/table',
+    name: 'Table',
     component: Layout,
-    redirect: '/guide/index',
+    redirect: '/table/base-table',
+    meta: {
+      title: '表格管理',
+      icon: TabletFilled,
+    },
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/guide/index'),
-        name: 'Guide',
+        path: 'base-table',
+        name: 'BaseTable',
+        component: () => import('@/views/table/base-table'),
         meta: {
-          title: 'Guide',
-          icon: AtCircleSharp,
+          title: '简单表格',
+          icon: TableOutlined,
+        },
+      },
+      {
+        path: 'complex-table',
+        name: 'ComplexTable',
+        component: () => import('@/views/table/complex-table'),
+        meta: {
+          title: '复杂表格',
+          icon: TabletPortrait,
           noCache: true,
         },
+      },
+      {
+        path: 'curd-table',
+        name: 'CurdTable',
+        component: () => import('@/views/table/curd-table'),
+        meta: {
+          title: 'CURD表格',
+          icon: TabletLandscape,
+        },
+      },
+    ],
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    meta: { hidden: true },
+    component: () => import('@/views/login'),
+  },
+  // 错误页
+  {
+    path: '/:path(.*)*',
+    name: 'ErrorPage',
+    component: Layout,
+    meta: { hidden: true, title: '错误页' },
+    children: [
+      {
+        path: '/:path(.*)*',
+        name: 'ErrorPage',
+        component: ErrorPage,
+        meta: { hidden: true, title: '错误页' },
+      },
+    ],
+  },
+  // 重定向页
+  {
+    path: '/redirect',
+    component: Layout,
+    meta: { hidden: true },
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect'),
       },
     ],
   },
@@ -168,10 +199,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: '/permission/page',
     name: 'Permission',
     meta: {
-      alwaysShow: true, // will always show the root menu
+      alwaysShow: true,
       title: 'Permission',
       icon: BackspaceSharp,
-      roles: ['admin', 'editor'], // you can set roles in root nav
+      roles: ['admin', 'editor'],
     },
     children: [
       {
@@ -181,7 +212,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Page Permission',
           icon: AlbumsSharp,
-          roles: ['admin'], // or you can only set roles in sub nav
+          roles: ['admin'],
         },
       },
       {

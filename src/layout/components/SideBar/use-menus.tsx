@@ -1,4 +1,3 @@
-import { isExternal } from '@/utils/validate'
 import { MenuOption, NIcon } from 'naive-ui'
 import { RouteRecordRaw, RouterLink } from 'vue-router'
 
@@ -13,12 +12,13 @@ export function useRoutesToMenus(routes: RouteRecordRaw[], basePath = '') {
     .map(route => {
       const fullPath = `${basePath}/${route.path}`.replace(/^\/+/, '/')
       menu = {
-        label: () =>
-          isExternal(fullPath) ? (
-            <a href={fullPath}>{route.meta?.title}</a>
-          ) : (
-            <RouterLink to={fullPath}>{route.meta?.title}</RouterLink>
-          ),
+        // label: () =>
+        //   isExternal(fullPath) ? (
+        //     <a href={fullPath}>{route.meta?.title}</a>
+        //   ) : (
+        //     <RouterLink to={fullPath}>{route.meta?.title}</RouterLink>
+        //   ),
+        label: route.meta?.title,
         key: fullPath,
         icon: renderIcon(route.meta?.icon),
         // icon: renderIcon(route.meta!.icon as Component),

@@ -40,7 +40,6 @@ export default defineComponent({
     // 头部 菜单栏
     const fixedHeader = computed(() => {
       const fixed = unref(headerSetting.value?.fixed)
-      console.log(fixed)
       return fixed ? 'absolute' : 'static'
     })
 

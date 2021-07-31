@@ -1,10 +1,10 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Guide',
+  name: 'CurdTable',
   setup() {
     return () => {
-      return <div>Guide</div>
+      return <div>CurdTable</div>
     }
   },
 })

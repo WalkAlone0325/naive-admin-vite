@@ -1,8 +1,9 @@
 import { defineComponent, ref, computed, PropType, toRaw, watch } from 'vue'
 import { NMenu } from 'naive-ui'
 import { useStore } from '@/store'
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useRoutesToMenus } from './use-menus'
+import { isExternal } from '@/utils/validate'
 
 export default defineComponent({
   name: 'SideBar',
@@ -20,10 +21,11 @@ export default defineComponent({
   },
   setup(props) {
     const route = useRoute()
+    const router = useRouter()
     const store = useStore()
 
     const activeKey = ref(route.path)
-    console.log(activeKey.value)
+    // console.log(activeKey.value)
 
     // computed
     // const routes = computed(() => store.getters.routesData)
@@ -41,8 +43,16 @@ export default defineComponent({
 
     // 获取菜单表
     const menu = useRoutesToMenus(toRaw(routes.value))
+    // console.log(menu)
 
     // methods
+    const handleClickItem = (key: string) => {
+      if (isExternal(key)) {
+        return window.open
+      } else {
+        return router.push(key)
+      }
+    }
 
     return () => {
       return (
@@ -53,6 +63,7 @@ export default defineComponent({
           collapsedWidth={64}
           collapsedIconSize={22}
           options={menu}
+          onUpdateValue={handleClickItem}
           v-model={[activeKey.value, 'value']}
         />
       )

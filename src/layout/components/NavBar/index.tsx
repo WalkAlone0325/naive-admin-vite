@@ -70,8 +70,8 @@ export default defineComponent({
           {/* 右侧菜单 */}
           <div style={rightMenuConStyle}>
             <NSpace size="large">
-              <GitAddress />
               <ReloadPage v-show={headerSetting.value?.isReload} />
+              <GitAddress />
               <Screenfull />
               <DropProfile />
               <Settings />
