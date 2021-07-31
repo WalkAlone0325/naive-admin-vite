@@ -1,40 +1,29 @@
-import {
-  NMessageProvider,
-  darkTheme,
-  dateZhCN,
-  NConfigProvider,
-  zhCN,
-  NDialogProvider,
-  NNotificationProvider,
-  useMessage,
-  useDialog,
-} from 'naive-ui'
+import { darkTheme, dateZhCN, NConfigProvider, zhCN, useLoadingBar } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { RouterView } from 'vue-router'
 import './App.scss'
 import { useStore } from '@/store'
+import ProvideGlobal from './components/ProvideGlobal'
+import InjectGlobal from './components/ProvideGlobal/InjectGlobal'
 
 export default defineComponent({
   name: 'App',
   setup() {
-    // 挂载全局组件
-    // window.$dialog = useDialog()
-    // window.$message = useMessage()
-    // theme = { darkTheme }
+    // theme = 1{ darkTheme }
     const store = useStore()
+
+    // computed
     const hasDarkTheme = computed(() =>
       store.state.designSettings.isDarkTheme ? darkTheme : undefined,
     )
 
     return () => (
       <NConfigProvider theme={hasDarkTheme.value} locale={zhCN} dateLocale={dateZhCN}>
-        <NDialogProvider>
-          <NNotificationProvider>
-            <NMessageProvider>
-              <RouterView />
-            </NMessageProvider>
-          </NNotificationProvider>
-        </NDialogProvider>
+        <ProvideGlobal>
+          <InjectGlobal>
+            <RouterView />
+          </InjectGlobal>
+        </ProvideGlobal>
       </NConfigProvider>
     )
   },

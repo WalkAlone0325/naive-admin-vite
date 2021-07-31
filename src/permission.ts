@@ -1,30 +1,30 @@
-import router from './router'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import router from '@/router'
 import { getToken } from '@/utils/auth'
-import store from './store'
+import store from '@/store'
 import { RouteRecordRaw } from 'vue-router'
+import { useTitle } from '@vueuse/core'
 
-NProgress.configure({ showSpinner: false })
+const title = useTitle()
 
 // 白名单
 const whiteList = ['login', '/auth-redirect']
 
 router.beforeEach(async (to, from, next) => {
-  NProgress.start()
+  window.$loadingBar.start()
+
+  title.value = `后台管理-${to.meta.title}`
+
   const accessRoutes: RouteRecordRaw[] = await store.dispatch('permission/generateRoutes', [
     'admin',
   ])
-  // console.log(accessRoutes)
   accessRoutes.map(route => {
     router.addRoute(route)
   })
-  // router.addRoute(accessRoutes)
   next()
 })
 
 // router.beforeEach(async (to, from, next) => {
-//   NProgress.start()
+//   window.$loadingBar.start()
 
 //   const hasToken = getToken()
 
@@ -55,7 +55,7 @@ router.beforeEach(async (to, from, next) => {
 //           window.$message.error(error || '发生了错误！')
 //           next(`/login?redirect=${to.path}`)
 
-//           NProgress.done()
+//          window.$loadingBar.finish()
 //         }
 //       }
 //     }
@@ -65,11 +65,11 @@ router.beforeEach(async (to, from, next) => {
 //       next()
 //     } else {
 //       next(`/login?redirect=${to.path}`)
-//       NProgress.done()
+//       window.$loadingBar.finish()
 //     }
 //   }
 // })
 
 router.afterEach(() => {
-  NProgress.done()
+  window.$loadingBar.finish()
 })
