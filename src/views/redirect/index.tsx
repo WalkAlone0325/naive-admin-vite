@@ -1,19 +1,15 @@
 import { defineComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { NEmpty } from 'naive-ui'
 
 export default defineComponent({
   name: 'Redirect',
   setup() {
-    const {
-      params: { path },
-      query,
-    } = useRoute()
+    const { params, query } = useRoute()
     const router = useRouter()
 
-    router.replace({ path: '/' + path, query })
+    router.replace({ path: '/' + params.path, query })
 
-    return () => {
-      return <div></div>
-    }
+    return () => <NEmpty />
   },
 })

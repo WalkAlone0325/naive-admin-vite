@@ -1,7 +1,7 @@
 import { darkTheme, dateZhCN, NConfigProvider, zhCN, useLoadingBar } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { RouterView } from 'vue-router'
-import './App.scss'
+import '@/styles/index.scss'
 import { useStore } from '@/store'
 import ProvideGlobal from './components/ProvideGlobal'
 import InjectGlobal from './components/ProvideGlobal/InjectGlobal'

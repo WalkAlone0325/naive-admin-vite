@@ -48,7 +48,8 @@ export default defineComponent({
     // methods
     const handleClickItem = (key: string) => {
       if (isExternal(key)) {
-        return window.open
+        // 使用name做外链跳转
+        return window.open(key)
       } else {
         return router.push(key)
       }
