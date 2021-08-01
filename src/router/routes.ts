@@ -92,7 +92,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
         meta: {
-          title: 'Dashboard',
+          title: '首页',
           icon: AlbumsSharp,
           affix: true,
         },

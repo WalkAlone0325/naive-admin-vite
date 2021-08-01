@@ -1,13 +1,4 @@
-import {
-  computed,
-  defineComponent,
-  isReactive,
-  onMounted,
-  ref,
-  toRaw,
-  watch,
-  withModifiers,
-} from 'vue'
+import { computed, defineComponent, onMounted, ref, toRaw, watch, withModifiers } from 'vue'
 import { RouteLocationNormalized, RouterLink, useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { NIcon } from 'naive-ui'
@@ -58,7 +49,7 @@ export default defineComponent({
     }
 
     // 关闭tag
-    const handleClose = view => {
+    const handleClose = (view: RouteLocationNormalized) => {
       store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
         if (isReactive(view)) {
           toLastViews(visitedViews, view)
@@ -67,7 +58,10 @@ export default defineComponent({
       console.log(view)
     }
 
-    const toLastViews = (visitedViews, view) => {
+    const toLastViews = (
+      visitedViews: RouteLocationNormalized[],
+      view: RouteLocationNormalized,
+    ) => {
       const latestView = visitedViews.slice(-1)[0]
       if (latestView) {
         router.push(latestView.fullPath)

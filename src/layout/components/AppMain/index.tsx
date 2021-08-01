@@ -23,7 +23,7 @@ export default defineComponent({
               ) => {
                 return (
                   <Transition name="fade-transform" mode="out-in">
-                    <KeepAlive include={cachedViews.value}>
+                    <KeepAlive include={cachedViews.value as unknown as string[]}>
                       <Component key={key.value} />
                       {/* <Component key={route.path} /> */}
                     </KeepAlive>

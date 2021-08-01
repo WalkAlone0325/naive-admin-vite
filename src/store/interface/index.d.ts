@@ -30,6 +30,6 @@ export interface IDesignSettings {
 }
 
 export interface ITagsViewState {
-  visitedViews: string[]
-  cachedViews: string[]
+  visitedViews: RouteLocationNormalized[]
+  cachedViews: RouteLocationNormalized[]
 }

@@ -23,12 +23,15 @@ export default defineComponent({
       width: '30px',
       height: '30px',
     }
+    const titleStyle: CSSProperties = {
+      marginLeft: '20px',
+    }
 
     return () => {
       return (
         <div style={logoStyle}>
           <img style={imgStyle} src={logo} alt="" />
-          <h3 style={{ marginLeft: '20px' }} v-show={!props.collapsed}>
+          <h3 style={titleStyle} v-show={!props.collapsed}>
             {title.value}
           </h3>
         </div>
