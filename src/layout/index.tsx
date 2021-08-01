@@ -51,7 +51,9 @@ export default defineComponent({
     })
 
     // watch
-    let marginStyle: CSSProperties = {}
+    let marginStyle: CSSProperties = {
+      border: '1px solid #000',
+    }
     watch(
       () => fixedHeader.value,
       () => {
@@ -93,12 +95,14 @@ export default defineComponent({
             <div></div>
           )}
           <NLayout class={classes.rightContainer} nativeScrollbar={false}>
-            {/* 头部内容 */}
-            <NLayoutHeader inverted={inverted.value} position={fixedHeader.value} bordered>
-              <NavBar />
-            </NLayoutHeader>
+            <div>
+              {/* 头部内容 */}
+              <NLayoutHeader inverted={inverted.value} position={fixedHeader.value} bordered>
+                <NavBar />
+              </NLayoutHeader>
 
-            <TagsView />
+              <TagsView />
+            </div>
 
             {/* 主体内容 */}
             <NLayoutContent

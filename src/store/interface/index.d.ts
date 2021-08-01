@@ -1,5 +1,5 @@
 import { ISettings } from '@/settings'
-import { RouteRecordRaw } from 'vue-router'
+import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 
 export interface IRootState {
   app: IAppState
@@ -30,5 +30,6 @@ export interface IDesignSettings {
 }
 
 export interface ITagsViewState {
-  cachedViews: string[]
+  visitedViews: RouteLocationNormalized[]
+  cachedViews: RouteRecordRaw[]
 }

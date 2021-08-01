@@ -53,7 +53,7 @@ export default {
   navTheme: 'light',
   headerSetting: {
     bgColor: '#fff',
-    fixed: true,
+    fixed: false,
     isReload: true,
   },
   showFooter: true,

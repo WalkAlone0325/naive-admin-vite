@@ -85,3 +85,18 @@ img {
 // #nprogress .bar {
 //   background: rgb(42, 148, 125) !important; //自定义颜色
 // }
+.router-link-active {
+  background-color: #18a058 !important;
+  color: #fff !important;
+  border-color: #18a058 !important;
+  &::before {
+    content: '';
+    background: #fff;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: relative;
+    margin-right: 2px;
+  }
+}
