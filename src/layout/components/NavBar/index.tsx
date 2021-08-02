@@ -42,15 +42,27 @@ export default defineComponent({
     const rightMenuConStyle: CSSProperties = {
       display: 'flex',
     }
+    const lightThemeStyle: CSSProperties = {
+      color: 'rgb(51, 54, 57)',
+      backgroundColor: '#fff',
+      borderBottom: 'none',
+    }
 
     return () => {
       return (
+        // class={navTheme.value === 'header-dark' ? '' : classes.layoutHeaderLight、}
         <div
-          style={navBarConStyle}
-          class={navTheme.value === 'header-dark' ? '' : classes.layoutHeaderLight}>
+          style={{
+            ...navBarConStyle,
+            ...(navTheme.value === 'header-dark' ? '' : lightThemeStyle),
+          }}>
           {navMode.value === 'horizontal' ? (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <SideBar mode="horizontal" v-model={[collapsed.value, 'collapsed']} />
+              <SideBar
+                mode="horizontal"
+                style={navTheme.value === 'header-dark' ? '' : lightThemeStyle}
+                v-model={[collapsed.value, 'collapsed']}
+              />
             </div>
           ) : (
             <div style={leftStyle}>

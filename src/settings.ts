@@ -49,8 +49,8 @@ export interface ISettings {
 }
 
 export default {
-  navMode: 'vertical',
-  navTheme: 'light',
+  navMode: 'horizontal',
+  navTheme: 'header-dark',
   headerSetting: {
     bgColor: '#fff',
     fixed: false,

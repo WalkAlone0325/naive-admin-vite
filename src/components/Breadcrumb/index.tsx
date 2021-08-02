@@ -1,6 +1,6 @@
 import { useSettings } from '@/hooks/use-settings'
 import { NBreadcrumb, NBreadcrumbItem, NDropdown } from 'naive-ui'
-import { computed, defineComponent, Fragment, TransitionGroup } from 'vue'
+import { computed, defineComponent, Fragment, CSSProperties } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useGeneratorMenu } from './use-generator-menu'
 
@@ -12,14 +12,23 @@ export default defineComponent({
 
     const breadcrumbList = computed(() => useGeneratorMenu(route.matched))
     // console.log(breadcrumbList.value)
-    const { crumbsSetting } = useSettings()
+    const { crumbsSetting, navTheme } = useSettings()
 
     // methods
     // 返回组件
     const retComp = (Icon: any) => <Icon style={{ marginRight: '8px' }} />
 
+    // css
+    const lightThemeStyle: CSSProperties = {
+      color: 'rgb(51, 54, 57)',
+      backgroundColor: '#fff',
+      borderBottom: 'solid 1px rgb(239, 239, 245)',
+    }
+
     return () => (
-      <NBreadcrumb v-show={crumbsSetting.value?.show}>
+      <NBreadcrumb
+        style={navTheme.value === 'header-dark' ? '' : lightThemeStyle}
+        v-show={crumbsSetting.value?.show}>
         {breadcrumbList.value.map(item => (
           <NBreadcrumbItem key={item.key}>
             {item.children?.length ? (

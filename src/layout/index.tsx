@@ -1,5 +1,12 @@
 import { defineComponent, computed, unref, onMounted, watch, CSSProperties } from 'vue'
-import { NLayout, NLayoutSider, NLayoutFooter, NLayoutHeader, NLayoutContent } from 'naive-ui'
+import {
+  NLayout,
+  NLayoutSider,
+  NLayoutFooter,
+  NLayoutHeader,
+  NLayoutContent,
+  useThemeVars,
+} from 'naive-ui'
 import classes from './index.module.scss'
 import SideBar from './components/SideBar'
 import NavBar from './components/NavBar'
@@ -15,6 +22,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useStore()
+    const themeVars = useThemeVars()
 
     // 全局设置
     const { showFooter, headerSetting, navMode, navTheme, menuSetting, multiTabsSetting } =
@@ -50,10 +58,15 @@ export default defineComponent({
       window.addEventListener('resize', watchWidth)
     })
 
-    // watch
     let marginStyle: CSSProperties = {
       border: '1px solid #000',
     }
+    const lightThemeStyle: CSSProperties = {
+      color: 'rgb(51, 54, 57)',
+      backgroundColor: '#fff',
+      borderBottom: 'solid 1px rgb(239, 239, 245)',
+    }
+    // watch
     watch(
       () => fixedHeader.value,
       () => {
@@ -97,7 +110,11 @@ export default defineComponent({
           <NLayout class={classes.rightContainer} nativeScrollbar={false}>
             <div>
               {/* 头部内容 */}
-              <NLayoutHeader inverted={inverted.value} position={fixedHeader.value} bordered>
+              <NLayoutHeader
+                inverted={inverted.value}
+                style={navTheme.value === 'header-dark' ? '' : lightThemeStyle}
+                position={fixedHeader.value}
+                bordered>
                 <NavBar />
               </NLayoutHeader>
 
